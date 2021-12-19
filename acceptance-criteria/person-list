@@ -1,0 +1,49 @@
+Scenario: To test rest end point person list without max value
+Given: there are 2 person records in the database
+When: when user makes a GET - localhost:8080/person/list
+Then: list of 2 person data should be returned
+
+Scenario: To test rest end point person list without max value should return 10 records
+Given: there are 10 person records in the database
+When: user makes a GET - localhost:8080/person/list
+Then: list of 10 person data should be returned
+
+Scenario: To test rest end point person list without max value (default 10)
+Given: there are 20 person records in the database
+When: user makes a GET - localhost:8080/person/list
+Then: list of 10 person data should be returned
+
+Scenario: To test rest end point person list with max value 20
+Given: there are 30 person records in the database
+When: user makes a GET - localhost:8080/person/list?max=20
+Then: list of 20 person data should be returned
+
+Scenario: To test rest end point person list with max value -1
+Given: there are 21 person records in the database
+When: user makes a GET - localhost:8080/person/list?max=-1
+Then: list of all persons data should be returned
+
+Scenario: To test rest end point person list with invalid max value
+Given: there are 20 person records in the database
+When: user makes a GET - localhost:8080/person/list?max=abc
+Then: list of 10 person data should be returned
+
+Scenario: To test rest end point person list with POST type
+Given: there are 20 person records in the database
+When: user makes a POST - localhost:8080/person/list?max=20
+Then: api should return 405 error message method not allowed
+
+Scenario: To test rest end point person list with PUT type
+Given: there are 20 person records in the database
+When: user makes a PUT - localhost:8080/person/list?max=20
+Then: api should return 405 error message method not allowed
+
+Scenario: To test rest end point person list with DELETE type
+Given: there are 20 person records in the database
+When: user makes a DELETE - localhost:8080/person/list?max=20
+Then: api should return 405 error message method not allowed
+
+Scenario: To test rest end point person list with invalid url
+Given: there are 20 person records in the database
+When: user makes a GET - localhost:8080/people/list?max=20
+Then: api should return 404 error message

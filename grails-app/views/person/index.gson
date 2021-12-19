@@ -1,0 +1,13 @@
+import myapp.Person
+
+model {
+	Iterable<Person> personList
+}
+
+json {
+	status  "success"
+	count personList?.size()
+	results  tmpl.person(personList ?: [])
+}
+
+

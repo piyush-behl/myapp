@@ -1,0 +1,7 @@
+import myapp.Person
+
+model {
+	Person person
+}
+
+json g.render(person, [resolveTemplate: false, excludes: ["id"]])
