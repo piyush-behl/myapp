@@ -5,12 +5,6 @@ import spock.lang.Specification
 
 class PersonSpec extends Specification implements DomainUnitTest<Person> {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "test save person with null constraints"() {
        when:
        Person person = new Person()

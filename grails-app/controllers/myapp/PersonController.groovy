@@ -15,7 +15,7 @@ class PersonController {
 
     PersonService personService
 
-    static responseFormats = ['json', 'xml']
+    static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", index: "GET"]
 
     def index(Integer max) {

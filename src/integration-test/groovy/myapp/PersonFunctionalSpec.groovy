@@ -13,7 +13,6 @@ import spock.lang.AutoCleanup
 import spock.lang.Shared
 import spock.lang.Specification
 
-@Rollback
 @Integration
 class PersonFunctionalSpec extends Specification {
 
@@ -29,8 +28,12 @@ class PersonFunctionalSpec extends Specification {
     }
 
     @Override
-    void setMetaClass(MetaClass metaClass) {
+    void setMetaClass( MetaClass metaClass) {
         super.setMetaClass(metaClass)
+    }
+
+    void cleanup() {
+        personService.deleteAll()
     }
 
     void "To test rest end point person list without max value"() {
@@ -57,7 +60,7 @@ class PersonFunctionalSpec extends Specification {
         when: "when user makes a GET - localhost:8080/person/list"
         HttpResponse<PersonListResult> response = client.toBlocking().exchange(HttpRequest.GET("/person/list"), PersonListResult)
 
-        then: "list persons should return 10 person records"
+        then: "list of 10 person data should be returned"
         response.status == HttpStatus.OK
         PersonListResult resp = response.body()
         resp.status == 'success'
@@ -70,10 +73,10 @@ class PersonFunctionalSpec extends Specification {
         given: "there are 20 person records in the database"
         (1..20).each {personService.save("fname$it", "lname$it")}
 
-        when: "when user makes a GET - localhost:8080/person/list   "
+        when: "when user makes a GET - localhost:8080/person/list"
         HttpResponse<PersonListResult> response = client.toBlocking().exchange(HttpRequest.GET("/person/list"), PersonListResult)
 
-        then: "list of 10 person data should be returned instead of 20"
+        then: "list of 10 person data should be returned"
         response.status == HttpStatus.OK
         PersonListResult resp = response.body()
         resp.status == 'success'
@@ -181,5 +184,4 @@ class PersonFunctionalSpec extends Specification {
         def e = thrown(HttpClientResponseException)
         e.response.status == HttpStatus.NOT_FOUND
     }
-
 }

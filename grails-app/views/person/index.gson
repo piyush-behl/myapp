@@ -6,7 +6,7 @@ model {
 
 json {
 	status  "success"
-	count personList?.size()
+	count personList.size()
 	results  tmpl.person(personList ?: [])
 }
 
