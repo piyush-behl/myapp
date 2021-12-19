@@ -1,3 +1,12 @@
+# Grails 5 Rest Application
+
+## Acceptance Criteria
+
+You should find acceptance criteria [here](https://github.com/piyush-behl/myapp/blob/master/acceptance-criteria/person-list)
+
+
+## Addressing Design Concerns
+
 > Response time: How will you ensure that calls to the endpoint are performant and do not take excessive time in a large production deployment?
 
 This application ensure the response time by using pagination technique. We limit the maximum number of person in the list response to 100. Otherwise, it may cause the system to crash when there are millions of records in the database.
